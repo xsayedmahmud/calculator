@@ -19,131 +19,207 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script src="app.js" defer></script>
   </head>
   <body>
     <div class="container">
-      <div class="screen"></div>
-      <button class="btn upper">
+      <div class="screen">
+        <div class="userInput"></div>
+        <div class="result"></div>
+      </div>
+
+      <!-- Square root button -->
+
+      <button class="btn" data-type="function" data-value="√">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">√</span>
       </button>
-      <button class="btn upper">
+
+      <!-- Pi button -->
+
+      <button class="btn" data-type="function" data-value="π">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">π</span>
       </button>
-      <button class="btn upper">
+
+      <!-- Power button -->
+
+      <button class="btn" data-type="exponent" data-value="^">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">^</span>
       </button>
-      <button class="btn upper">
+
+      <!-- Factorial button -->
+
+      <button class="btn" data-type="postfix" data-value="!">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">!</span>
       </button>
-      <button class="btn">
+
+      <!-- Clear button -->
+
+      <button class="btn clear" data-type="action" data-value="clear">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">AC</span>
       </button>
-      <button class="btn">
+
+      <!-- Parentheses button -->
+
+      <button class="btn" data-type="bracket" data-value="( )">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">( )</span>
       </button>
-      <button class="btn">
+
+      <!--  Percentage button -->
+
+      <button class="btn" data-type="postfix" data-value="%">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">%</span>
       </button>
-      <button class="btn">
+
+      <!-- Division button -->
+
+      <button class="btn" data-type="operator" data-value="÷">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">÷</span>
       </button>
-      <button class="btn">
+
+      <!-- Number 7 button -->
+
+      <button class="btn" data-type="numeric" data-value="7">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">7</span>
       </button>
-      <button class="btn">
+
+      <!-- Number 8 button -->
+
+      <button class="btn" data-type="numeric" data-value="8">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">8</span>
       </button>
-      <button class="btn">
+
+      <!-- Number 9 button -->
+
+      <button class="btn" data-type="numeric" data-value="9">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">9</span>
       </button>
-      <button class="btn">
+
+      <!-- Multiplication button -->
+
+      <button class="btn" data-type="operator" data-value="×">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">×</span>
       </button>
-      <button class="btn">
+
+      <!-- Number 4 button -->
+
+      <button class="btn" data-type="numeric" data-value="4">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">4</span>
       </button>
-      <button class="btn">
+
+      <!-- Number 5 button -->
+
+      <button class="btn" data-type="numeric" data-value="5">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">5</span>
       </button>
-      <button class="btn">
+
+      <!-- Number 6 button -->
+
+      <button class="btn" data-type="numeric" data-value="6">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">6</span>
       </button>
-      <button class="btn">
+
+      <!-- Subtraction button -->
+
+      <button class="btn" data-type="operator" data-value="-">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">-</span>
       </button>
-      <button class="btn">
+
+      <!-- Number 1 button -->
+
+      <button class="btn" data-type="numeric" data-value="1">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">1</span>
       </button>
-      <button class="btn">
+
+      <!-- Number 2 button -->
+
+      <button class="btn" data-type="numeric" data-value="2">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">2</span>
       </button>
-      <button class="btn">
+
+      <!-- Number 3 button -->
+
+      <button class="btn" data-type="numeric" data-value="3">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">3</span>
       </button>
-      <button class="btn">
+
+      <!-- Addition button -->
+
+      <button class="btn" data-type="operator" data-value="+">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">+</span>
       </button>
-      <button class="btn">
+
+      <!-- Number 0 button -->
+
+      <button class="btn" data-type="numeric" data-value="0">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">0</span>
       </button>
-      <button class="btn">
+
+      <!-- Decimal point button -->
+
+      <button class="btn" data-type="numeric" data-value=".">
         <span class="shadow"></span>
         <span class="edge"></span>
-        <span class="front">⋅</span>
+        <span class="front">.</span>
       </button>
-      <button class="btn">
+
+      <!-- Backspace button -->
+
+      <button class="btn" data-type="action" data-value="backSpace">
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front">
           <i class="fa-solid fa-delete-left"></i>
         </span>
       </button>
-      <button class="btn">
+
+      <!-- Equal button -->
+
+      <button class="btn" data-type="action" data-value="=">
         <span class="shadow"></span>
         <span class="edge"></span>
-        <span class="front">＝</span>
+        <span class="front">=</span>
       </button>
     </div>
   </body>
