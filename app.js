@@ -120,7 +120,11 @@ btn.forEach((button) => {
         break;
 
       default:
-        inputArray.push(value);
+        if (lastElement === "π" || lastElement === "!") {
+          break;
+        } else {
+          inputArray.push(value);
+        }
     }
 
     displayInput(inputArray);
@@ -193,14 +197,7 @@ function calculate(input) {
     } else if (char === "√") {
       stack.push(char);
     } else if (char === "π") {
-      let prevChar = expression[i - 1];
-      let nextChar = expression[i + 1];
-      if (!isNaN(prevChar) || prevChar === ")") {
-        postfix.push(Math.PI);
-        postfix.push("×");
-      } else {
-        postfix.push(Math.PI);
-      }
+      postfix.push(Math.PI);
     } else {
       char = parseFloat(char);
       if (postfix[postfix.length - 1] === Math.PI) {
@@ -228,7 +225,6 @@ function calculate(input) {
         let a = parseFloat(resultStack.pop());
         let result = operators[char](a);
         resultStack.push(result);
-        console.log(resultStack);
       } else if (char === "%") {
         let a = parseFloat(resultStack.pop());
         let b = parseFloat(resultStack.pop());
@@ -301,7 +297,6 @@ let mapping = {
 
 document.addEventListener("keydown", (e) => {
   let key = e.key;
-  console.log(key);
   btn.forEach((button) => {
     let value = button.dataset.value;
     let mappedValue = mapping[value] || value;
