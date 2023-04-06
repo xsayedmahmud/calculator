@@ -282,3 +282,31 @@ function factorial(n) {
     return result;
   }
 }
+
+let mapping = {
+  "÷": "/",
+  "×": "*",
+  "√": "s",
+  π: "p",
+  "^": "^",
+  "!": "f",
+  "%": "%",
+  clear: "Delete",
+  backSpace: "Backspace",
+  "-": "-",
+  "+": "+",
+  ".": ".",
+  "=": "Enter",
+};
+
+document.addEventListener("keydown", (e) => {
+  let key = e.key;
+  console.log(key);
+  btn.forEach((button) => {
+    let value = button.dataset.value;
+    let mappedValue = mapping[value] || value;
+    if (key === mappedValue) {
+      button.click();
+    }
+  });
+});
