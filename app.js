@@ -7,6 +7,7 @@ let inputArray = [];
 let lastResult = 0;
 let hasDot = false;
 let hasRootOrPi = false;
+let openParenthesis = false;
 
 btn.forEach((button) => {
   button.addEventListener("click", (e) => {
@@ -19,7 +20,7 @@ btn.forEach((button) => {
           calculate(inputArray);
           displayResult(lastResult);
         } catch (error) {
-          result.textContent = "Something went wrong";
+          result.textContent = "Math Error!";
         }
         break;
       case "clear":
@@ -29,6 +30,7 @@ btn.forEach((button) => {
         displayResult("");
         hasDot = false;
         hasRootOrPi = false;
+        openParenthesis = false;
         break;
       case "backSpace":
         inputArray.pop();
@@ -63,7 +65,6 @@ btn.forEach((button) => {
             hasDot = false;
             hasRootOrPi = true;
           } else {
-            // inputArray.push("×");
             inputArray.push(value);
             hasDot = false;
             hasRootOrPi = true;
@@ -71,13 +72,21 @@ btn.forEach((button) => {
         }
         break;
       case "( )":
-        if (inputArray.length === 0 || isNaN(lastElement)) {
+        if (
+          inputArray.length === 0 ||
+          (isNaN(lastElement) && !openParenthesis)
+        ) {
           inputArray.push("(");
-        } else if (lastElement === ")") {
-          inputArray.push("×");
+          openParenthesis = true;
+        } else if (
+          lastElement === ")" ||
+          (!isNaN(lastElement) && !openParenthesis)
+        ) {
           inputArray.push("(");
+          openParenthesis = true;
         } else {
           inputArray.push(")");
+          openParenthesis = false;
         }
         hasRootOrPi = false;
         break;
@@ -98,7 +107,6 @@ btn.forEach((button) => {
         break;
       case "+":
       case "×":
-      // case "-":
       case "÷":
         if (lastElement === "π" || lastElement === "!" || lastElement === ")") {
           inputArray.push(value);
@@ -163,7 +171,12 @@ function calculate(input) {
   for (let i = 0; i < expression.length; i++) {
     let char = expression[i];
     if (char === "(") {
-      stack.push(char);
+      if (!isNaN(expression[i - 1]) || expression[i - 1] === ")") {
+        stack.push(char);
+        stack.push("×");
+      } else {
+        stack.push(char);
+      }
     } else if (char === ")") {
       while (stack.length > 0 && stack[stack.length - 1] !== "(") {
         postfix.push(stack.pop());
@@ -179,19 +192,26 @@ function calculate(input) {
       stack.push(char);
     } else if (char === "√") {
       stack.push(char);
-    } else if (char === "√") {
-      stack.push(char);
     } else if (char === "π") {
       let prevChar = expression[i - 1];
+      let nextChar = expression[i + 1];
       if (!isNaN(prevChar) || prevChar === ")") {
-        postfix.push("×");
         postfix.push(Math.PI);
+        postfix.push("×");
       } else {
         postfix.push(Math.PI);
       }
     } else {
       char = parseFloat(char);
-      postfix.push(char);
+      if (postfix[postfix.length - 1] === Math.PI) {
+        postfix.push(char);
+        postfix.push("×");
+      } else if (expression[i - 1] === ")") {
+        postfix.push(char);
+        postfix.push("×");
+      } else {
+        postfix.push(char);
+      }
     }
   }
   while (stack.length > 0) {
@@ -200,22 +220,21 @@ function calculate(input) {
   console.log(postfix);
 
   let resultStack = [];
-  let operatorIndex = -1;
 
   for (let i = 0; i < postfix.length; i++) {
     let char = postfix[i];
     if (char in operators) {
-      operatorIndex++;
       if (char === "√" || char === "!") {
         let a = parseFloat(resultStack.pop());
         let result = operators[char](a);
         resultStack.push(result);
+        console.log(resultStack);
       } else if (char === "%") {
         let a = parseFloat(resultStack.pop());
         let b = parseFloat(resultStack.pop());
         let result;
-        switch (postfix[operatorIndex - 1]) {
-          case undefined:
+        switch (postfix[postfix.length - 1]) {
+          case "%":
             result = a / 100;
             break;
           case "+":
@@ -234,6 +253,8 @@ function calculate(input) {
             result = NaN;
             break;
         }
+
+        postfix.pop();
         resultStack.push(result);
       } else {
         let b = parseFloat(resultStack.pop());
