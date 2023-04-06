@@ -289,7 +289,7 @@ let mapping = {
   "√": "s",
   π: "p",
   "^": "^",
-  "!": "f",
+  "!": "!",
   "%": "%",
   clear: "Delete",
   backSpace: "Backspace",
